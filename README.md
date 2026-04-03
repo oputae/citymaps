@@ -43,8 +43,16 @@ npm start
 ## Deploy (e.g. Vercel)
 
 1. Push this repo to GitHub.
-2. Import the project in Vercel; use the default **Next.js** settings (`npm run build`, output `.next`).
-3. **Environment variables:** none are required for the current code path. See [`.env.example`](.env.example) for optional keys you might add later (Mapbox, analytics, etc.). Set those only in **Vercel → Project → Settings → Environment Variables** — never commit real secrets.
+2. Import the project in Vercel. The repo includes [`vercel.json`](vercel.json) with `"framework": "nextjs"` so Vercel treats the app as **Next.js** (not a static site).
+3. In **Project → Settings → General → Build & Development Settings**, confirm:
+   - **Framework Preset:** Next.js
+   - **Root Directory:** `.` (repository root — **not** `src`)
+   - **Build Command:** `next build` (or leave default)
+   - **Output Directory:** **leave empty** — do not set `out` or `.next` unless you know you need a custom static export. A wrong output folder often shows as **404 NOT_FOUND** even when the build succeeds.
+4. **Git → Production Branch** should match your default branch (e.g. **`main`**), or production URLs may not point at your latest deploy.
+5. **Environment variables:** none are required for the current code path. See [`.env.example`](.env.example) for optional keys you might add later (Mapbox, analytics, etc.). Set those only in **Vercel → Project → Settings → Environment Variables** — never commit real secrets.
+
+If you still see Vercel’s **404 NOT_FOUND** page, open the **latest deployment** in the dashboard and use the **Visit** link there (avoids typos or stale bookmarks). See Vercel’s [NOT_FOUND](https://vercel.com/docs/errors/NOT_FOUND) and [404 deployment guide](https://vercel.com/guides/why-is-my-deployed-project-giving-404).
 
 ---
 
