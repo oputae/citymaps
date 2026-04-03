@@ -262,7 +262,15 @@ export default function StudioPage() {
         console.warn("[export] Dimensions capped for browser limits");
       }
       const slug = style.city?.replace(/\s+/g, "-").toLowerCase() || "poster";
-      await downloadMapPng(map, w, h, `city-vibe-maps-${slug}-${preset.id}.png`);
+      await downloadMapPng(map, w, h, `city-vibe-maps-${slug}-${preset.id}.png`, {
+        theme: theme.poster,
+        posterText: style.posterText,
+        city: style.city,
+        country: style.country,
+        coords: coordStr,
+        credits: style.credits,
+        fontFamily: posterFont.cssFamily,
+      });
     } catch (err) {
       console.error(err);
       setGeoError("Export didn’t finish — try a smaller preset or lower DPI in Settings.");
